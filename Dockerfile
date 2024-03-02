@@ -1,11 +1,27 @@
-FROM node:16-buster
+#Dockerfile
 
-WORKDIR /usr/app
-COPY ./package.json ./
-RUN npm install --force
-COPY ./ /usr/app
-RUN NODE_OPTIONS=--max-old-space-size=8192 npm run build
+# Use this image as the platform to build the app
+FROM node:18-alpine AS external-website
 
-FROM nginx
-WORKDIR /usr/app
-COPY --from=0 /usr/app/dist /usr/share/nginx/html
+# A small line inside the image to show who made it
+LABEL Developers="Ronald de Lange"
+
+# The WORKDIR instruction sets the working directory for everything that will happen next
+WORKDIR /app
+
+# Copy all local files into the image
+COPY . .
+
+# Clean install all node modules
+RUN npm ci
+
+# Build SvelteKit app
+RUN npm run build
+
+
+# The USER instruction sets the user name to use as the default user for the remainder of the current stage
+#USER node:node
+
+# This is the command that will be run inside the image when you tell Docker to start the container
+# CMD ["node","build/index.js"]
+CMD [ "npm", "serve" ]
