@@ -23,4 +23,4 @@ RUN npm run build
 #USER node:node
 
 # This is the command that will be run inside the image when you tell Docker to start the container
-CMD ["node","build/index.js"]
+CMD ["node","dist/index.html"]
