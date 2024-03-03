@@ -61,7 +61,7 @@
       anyone.
     </p>
     <p class="mt-2 text-gray-600 dark:text-gray-400">
-      Copyright {new Date().getFullYear()}. All rights reserved.
+      - {new Date().getFullYear()} -
       <a
         class="text-primary-500 underline"
         href="https://www.dailynomie.com"
